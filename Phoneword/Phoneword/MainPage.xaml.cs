@@ -2,16 +2,18 @@
 
 public partial class MainPage : ContentPage
 {
-    string translatedNumber;
+    string? translatedNumber;
 
     public MainPage()
     {
         InitializeComponent();
+        CallBtn.IsEnabled = false;
     }
 
     private void OnTranslate(object sender, EventArgs e)
     {
-        string enteredNumber = PhoneNumberText.Text;
+        string enteredNumber = PhoneNumberText.Text ?? "";
+
         translatedNumber = PhonewordTranslator.ToNumber(enteredNumber);
 
         if (!string.IsNullOrEmpty(translatedNumber))
@@ -28,24 +30,30 @@ public partial class MainPage : ContentPage
 
     private async void OnCall(object sender, EventArgs e)
     {
-        if (await DisplayAlert(
+        if (string.IsNullOrEmpty(translatedNumber))
+            return;
+
+        bool answer = await DisplayAlertAsync(
             "Dial Number",
-            "Would you like to call " + translatedNumber + "?",
+            $"Would you like to call {translatedNumber}?",
             "Yes",
-            "No"))
+            "No");
+
+        if (answer)
         {
             try
             {
                 if (PhoneDialer.Default.IsSupported)
+                {
                     PhoneDialer.Default.Open(translatedNumber);
-            }
-            catch (ArgumentNullException)
-            {
-                await DisplayAlert("Unable to dial", "Phone number was not valid.", "OK");
+                }
             }
             catch (Exception)
             {
-                await DisplayAlert("Unable to dial", "Phone dialing failed.", "OK");
+                await DisplayAlertAsync(
+                    "Unable to dial",
+                    "Phone dialing failed.",
+                    "OK");
             }
         }
     }

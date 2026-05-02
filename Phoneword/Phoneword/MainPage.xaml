@@ -4,35 +4,27 @@
              x:Class="Phoneword.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30"
-            Spacing="20"
-            VerticalOptions="Center">
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
-            <Label
-                Text="Enter a Phoneword:"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <Label Text="Enter a Phoneword:"
+                   FontSize="18"
+                   HorizontalOptions="Center" />
 
             <Entry x:Name="PhoneNumberText"
                    Text="1-855-NET-MAUI"
-                   FontSize="20"
-                   HorizontalOptions="Fill" />
+                   FontSize="20" />
 
-            <Button
-                x:Name="TranslateBtn"
-                Text="Translate"
-                Clicked="OnTranslate"
-                HorizontalOptions="Fill" />
+            <Button x:Name="TranslateBtn"
+                    Text="Translate"
+                    Clicked="OnTranslate"
+                    HorizontalOptions="Fill" />
 
-            <Button
-                x:Name="CallBtn"
-                Text="Call"
-                IsEnabled="false"
-                Clicked="OnCall"
-                HorizontalOptions="Fill" />
+            <Button x:Name="CallBtn"
+                    Text="Call"
+                    IsEnabled="false"
+                    Clicked="OnCall"
+                    HorizontalOptions="Fill" />
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
